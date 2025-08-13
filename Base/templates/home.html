@@ -1,0 +1,201 @@
+
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Portfolio </title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+
+</head>
+<body>
+     <!-- navbar section -->
+     <nav id = "navbar" class = "flex s-around bg-color" >
+        <div class="left-nav">
+            <h2 class ="t-white"> Portfolio </h2>
+        </div>
+
+        <div class="right-nav">
+           <ul class="flex"> 
+            <li><a href="#home" class="t-white roboto"> Home <i class="fa-solid fa-house"></i> </a> </li>
+
+            <li><a href="#about" class="t-white roboto"> About me <i class="fa-solid fa-user"></i> </a> </li>
+
+            <li><a href="#skills" class="t-white roboto"> Skills <i class="fa-solid fa-code"></i> </a> </li>
+
+            <li><a href="#projects" class="t-white roboto"> Project <i class="fa-solid fa-project-diagram"></i> </a> </li>
+
+            <li><a href="#Contact" class="t-white roboto"> Contact <i class="fa-solid fa-rocket"></i> </a> </li>
+           </ul>
+        </div>
+
+     </nav>
+
+    <!-- home section -->
+     <section id="home" class="flex s-around sw-80 m-auto">
+        <div class="home-left flext items-center">
+            <div class="home-content">
+                <h6 class="popinss"> Hi , i'm </h6>
+                <h1 class="t-white"> Shahed Pervez Nokib </h1>
+                <h4 class="popinss"> Aspiring Software Engineer</h4>
+                <a href="{% static 'pdf/nokib.pdf' %}" target="_blank"> 
+                    <button class="btn popinss"> Resume </button>
+                </a>
+                <a class="btn live popinss" id="hireme" href=""
+                target="_blank">Lets Talk </a>
+            </div>
+        </div>
+
+        <div class="home-right flex s-center items-center">
+            <div class="circle flex s-center items-center" id="mainimage">
+                <img src="{% static 'images/cc.png' %}" alt="" style="width:145%"> 
+
+            </div>
+        </div>
+     </section>
+
+     <!-- About section -->
+       <section id="about">
+        <h1 class="t-center my-2 t-white f-2">About Me</h1>
+        <div class="about-container flex s-around ">
+            <div class=" about-left flex s-center items-center">
+                <img src="{% static 'images/about2.png' %}" alt="" style="width: 60%;">
+            </div>
+            <div class="about-right flex">
+                <div class="about-content">
+                    <h1 class="t-white m-b-1 poppins">Shahed Pervez Nokib</h1>
+                    <p class="t-white poppins">I recently graduated from the esteemed Department of Computer Science and Engineering (CSE) at BRAC University, and I am passionate about Machine Learning (ML), Machine Vision, Robotics, and mathematics. I bring a dynamic skill set encompassing web development and proactive involvement in various extracurricular activities.</p>
+                    <a class="btn " id="hireme"
+                        href="">Hire Me</a>
+                </div>
+            </div>
+        </div>
+    </section>
+      
+      <!-- Skills section -->
+        <section id="skills">
+        <h1 class="t-center my-2 t-white f-2">Skills</h1>
+        <div class="services-container flex s-around h-50">
+        <div class=" skills-left flex s-center items-center">
+            <img src="{%static 'images/skills2.png'%}" alt="">
+        </div>
+
+        <div class="skills-right flex items-center">
+            <div class="skillss-container">
+                <div class="python bar p-relative"><span class="bar-content left t-white"> Python</span><span
+                        class="bar-content right-skills t-white">90%</span></div>
+                <div class="robotics bar p-relative"><span class="bar-content left t-white">Robotics(Sensors & Circuits)  </span><span
+                        class="bar-content right-skills t-white">80%</span></div>
+                <div class="vision bar p-relative"><span class="bar-content left t-white">Machine Vision</span><span
+                        class="bar-content right-skills t-white">60%</span></div>
+                <div class="data bar p-relative"><span class="bar-content left t-white">Data Analysis</span><span
+                        class="bar-content right-skills t-white">60%</span></div>                
+                <div class="mysql bar p-relative"><span class="bar-content left t-white">MySQL</span><span
+                        class="bar-content right-skills t-white">50%</span></div>        
+            </div>
+        </div>
+        </div>
+    </section>
+
+       <!--Project Section -->
+        <section id="Projects">
+        <h1 class=" t-center my-2 t-white f-2">Projects</h1>
+        <div class="projects-container flex s-center">
+            <div class="projects-item flex f-col s-center items-center">
+               
+                <h1 class="t-white poppins">Real Estate Web Application</h1>
+                <p class="t-white poppins"> Developed reusable Django apps with clean URL routing and template structure.Integrated PostgreSQL as the backend database and managed schemas and queries via pgAdmin4.Enabled property search, detailed listing views, and realtor contact forms with email notifications using Gmail SMTP.</p>
+                <div class="buttons flex s-around">
+                    <a href=""
+                        target="_blanks" class="btn mx-1 m-top">GitHub</a>
+                    <a href="" target="_blanks" class="btn m-top live">Live
+                        Link</a>
+                </div>
+            </div>
+            <div class="projects-item flex f-col s-center items-center">
+               
+                <h1 class="t-white poppins">Facial Recognition</h1>
+                <p class="t-white poppins">This is a built-from-scratch project in which,with the help of a tiny device like an ESP-32cam, we can identify a person in real time, even in motion. The technologies used are: Modified facial recognition models like mobilenetV2, facenet, resnet, Squeezenet.</p>
+                <div class="buttons flex s-around">
+                    <a href="" target="_blanks"
+                        class="btn mx-1 m-top">GitHub</a>
+                    <a href="#" target="_blanks" class="btn m-top live">Live
+                        Link</a>
+                </div>
+            </div>
+
+             <div class="projects-item flex f-col s-center items-center">
+               
+                <h1 class="t-white poppins">Sentiment-Analysis</h1>
+                <p class="t-white poppins">This is a simple sentiment analysis on the reviews from yelp website. It was done with the help of a pre trained model "Hugging Face Transformers" and Bert. Here I installed Transformers. Used pre-trained Hugging Face Transformers and BERT to calculate sentiment. Used BeautifulSoup to scrape reviews from Yelp website.</p>
+                <div class="buttons flex s-around">
+                    <a href="" target="_blanks"
+                        class="btn mx-1 m-top">GitHub</a>
+                    <a href="#" target="_blanks" class="btn m-top live">Live
+                        Link</a>
+                </div>
+            </div>           
+         </div>
+        </div>
+    </section>
+       
+    <!--Contact me section -->
+       <section id="Contact" class="m-b-1">
+        <h1 class="t-center my-2 t-white f-2 "> Contact Me </h1>
+        <div class="Contact-container flex s-around items-center">
+            <div class="form" id="contactform">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="name form-div">
+                        <input type="text" name="name" id="name" class="popinss" placeholder="Enter your Name" >
+                    </div>
+
+                    <div class="email form-div">
+                        <input type="email" name="email" id="email" class="popinss" placeholder="Enter your Email" required >
+                    </div>
+
+                    <div class="phone form-div">
+                        <input type="phone" name="number" id="" class="popinss" placeholder="Enter your Phone number" required >
+                    </div>
+
+                    <div class="textarea form-div">
+                        <textarea name="content" id="textarea" cols="30" rows="10" class="popinss" placeholder="Enter your message"></textarea>
+                    </div>
+                    <button type="submit" class="btn popinss" id="submit"> Send </button>
+                </form>
+            </div>
+        </div>
+       </section>
+
+    <!-- Footer Section-->
+       <footer id="footer">
+        <ul class="flex s-center w-80 m-auto my-2 res">
+            <li> <a href="#home" class="popinss"> Home </a> </li>
+            <li> <a href="#about" class="popinss">About </a> </li>
+            <li> <a href="#skills" class="popinss">Skills </a> </li>
+            <li> <a href="#project" class="popinss"> Project </a> </li>
+            <li> <a href="#portfolio" class="Portfolio"> Home </a> </li>
+        </ul>
+
+        <ul class="flex s-center w-80 font-awesome">
+            <a href="" target="_blank">
+                <li><i class="fa-brands fa-github"></i></li>
+            </a>
+
+            <a href="" target="_blank">
+                <li><i class="fa-brands fa-linkedin-in"></i></li>
+            </a>
+        </ul>
+        <p class="t-center my-2 popinss">copy; All Right Reserved -<span class="cpy-white popins"> Nokib </span></p>
+
+       </footer>
+    
+
+</body>
+</html>
