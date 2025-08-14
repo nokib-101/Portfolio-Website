@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
 </head>
 <body>
@@ -29,7 +29,7 @@
 
             <li><a href="#skills" class="t-white roboto"> Skills <i class="fa-solid fa-code"></i> </a> </li>
 
-            <li><a href="#projects" class="t-white roboto"> Project <i class="fa-solid fa-project-diagram"></i> </a> </li>
+            <li><a href="#Projects" class="t-white roboto"> Project <i class="fa-solid fa-project-diagram"></i> </a> </li>
 
             <li><a href="#Contact" class="t-white roboto"> Contact <i class="fa-solid fa-rocket"></i> </a> </li>
            </ul>
@@ -64,8 +64,15 @@
        <section id="about">
         <h1 class="t-center my-2 t-white f-2">About Me</h1>
         <div class="about-container flex s-around ">
-            <div class=" about-left flex s-center items-center">
-                <img src="{% static 'images/about2.png' %}" alt="" style="width: 60%;">
+            <div class="about-left flex s-center items-center">
+                 <lottie-player
+                    class="robot"
+                    src="{% static 'animation/hello.json' %}"
+                    background="transparent"
+                    speed="1"
+                    loop
+                    autoplay
+                ></lottie-player>
             </div>
             <div class="about-right flex">
                 <div class="about-content">
@@ -129,18 +136,6 @@
                         Link</a>
                 </div>
             </div>
-
-             <div class="projects-item flex f-col s-center items-center">
-               
-                <h1 class="t-white poppins">Sentiment-Analysis</h1>
-                <p class="t-white poppins">This is a simple sentiment analysis on the reviews from yelp website. It was done with the help of a pre trained model "Hugging Face Transformers" and Bert. Here I installed Transformers. Used pre-trained Hugging Face Transformers and BERT to calculate sentiment. Used BeautifulSoup to scrape reviews from Yelp website.</p>
-                <div class="buttons flex s-around">
-                    <a href="" target="_blanks"
-                        class="btn mx-1 m-top">GitHub</a>
-                    <a href="#" target="_blanks" class="btn m-top live">Live
-                        Link</a>
-                </div>
-            </div>           
          </div>
         </div>
     </section>
@@ -179,8 +174,8 @@
             <li> <a href="#home" class="popinss"> Home </a> </li>
             <li> <a href="#about" class="popinss">About </a> </li>
             <li> <a href="#skills" class="popinss">Skills </a> </li>
-            <li> <a href="#project" class="popinss"> Project </a> </li>
-            <li> <a href="#portfolio" class="Portfolio"> Home </a> </li>
+            <li> <a href="#Project" class="popinss"> Project </a> </li>
+
         </ul>
 
         <ul class="flex s-center w-80 font-awesome">
