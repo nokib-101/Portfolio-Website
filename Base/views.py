@@ -1,33 +1,30 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
 from django.contrib import messages
-from Base import models
 from Base.models import Contact
+from Base.notify import send_contact_email
+
 
 def contact(request):
     if request.method == "POST":
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        content = request.POST.get('content')
-        number = request.POST.get('number')
+        name = request.POST.get('name', '').strip()
+        email = request.POST.get('email', '').strip()
+        content = request.POST.get('content', '').strip()
+        number = request.POST.get('number', '').strip()
 
-        print(name,email,number,content)
-
-        if len(name)>1 and len(name) < 30:
-            pass
+        if not 2 <= len(name) <= 40:
+            messages.error(request, 'Name should be between 2 and 40 characters.')
+        elif not 3 <= len(email) <= 40:
+            messages.error(request, 'Please enter a valid email address.')
+        elif not content or len(content) > 400:
+            messages.error(request, 'Message should be between 1 and 400 characters.')
+        elif len(number) > 15:
+            messages.error(request, 'Phone number is too long.')
         else:
-            messages.error(request,'Length of name should be greater than2 and less than 30 words')
-            return render(request,'home.html')
+            contact = Contact.objects.create(name=name, email=email, content=content, number=number)
+            send_contact_email(contact)
+            messages.success(request, "Thanks for reaching out! I'll get back to you soon.")
 
-        if len(email)> 1 and len(email)<30:
-            pass
-        else:
-            messages.error(request,'invalid email. Try again.')
-            return render(request,'home.html')
-        
-        ins = models.Contact(name=name,email=email,content=content,number=number)
-        ins.save()
-        messages.success(request,'Thank you for contacting me || Your message have been saved')
-    
-    return render(request,'home.html')
+        # Post/Redirect/Get so refreshing doesn't resubmit the form
+        return redirect('/#contact')
 
+    return render(request, 'home.html')
