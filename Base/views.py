@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from Base.models import Contact
+from Base.notify import send_contact_email
 
 
 def contact(request):
@@ -19,7 +20,8 @@ def contact(request):
         elif len(number) > 15:
             messages.error(request, 'Phone number is too long.')
         else:
-            Contact.objects.create(name=name, email=email, content=content, number=number)
+            contact = Contact.objects.create(name=name, email=email, content=content, number=number)
+            send_contact_email(contact)
             messages.success(request, "Thanks for reaching out! I'll get back to you soon.")
 
         # Post/Redirect/Get so refreshing doesn't resubmit the form
