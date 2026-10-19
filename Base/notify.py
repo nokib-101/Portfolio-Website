@@ -24,7 +24,7 @@ def send_contact_email(contact):
     api_key = os.getenv("RESEND_API_KEY")
     to_email = os.getenv("CONTACT_EMAIL")
     if not api_key or not to_email:
-        logger.info("Contact email not sent: RESEND_API_KEY or CONTACT_EMAIL not set.")
+        logger.warning("Contact email not sent: RESEND_API_KEY or CONTACT_EMAIL not set.")
         return False
 
     body = (

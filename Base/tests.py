@@ -51,6 +51,22 @@ class ContactViewTests(TestCase):
         send.assert_called_once_with(Contact.objects.get())
 
     @mock.patch("Base.views.send_contact_email")
+    def test_https_post_behind_proxy_passes_csrf(self, send):
+        # Render forwards HTTPS requests as HTTP with X-Forwarded-Proto set.
+        client = self.client_class(enforce_csrf_checks=True, HTTP_HOST="nokib.onrender.com")
+        client.get("/")
+        response = client.post(
+            "/",
+            {"csrfmiddlewaretoken": client.cookies["csrftoken"].value,
+             "name": "Alice", "email": "alice@example.com", "content": "Hi"},
+            HTTP_ORIGIN="https://nokib.onrender.com",
+            HTTP_X_FORWARDED_PROTO="https",
+        )
+
+        self.assertEqual(response.status_code, 302)
+        send.assert_called_once()
+
+    @mock.patch("Base.views.send_contact_email")
     def test_invalid_submission_is_rejected(self, send):
         self.client.post("/", {"name": "A", "email": "alice@example.com", "content": "Hi"})
 

@@ -10,6 +10,17 @@ DEBUG = os.getenv("DEBUG", "False") == "True"
 # For Render, use "*" initially — later you can add your exact domain
 ALLOWED_HOSTS = ["*"]
 
+# Render terminates HTTPS at its proxy and forwards plain HTTP, so trust its
+# X-Forwarded-Proto header; otherwise Django rejects form POSTs (403 CSRF)
+# because the browser's https:// Origin doesn't match.
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+# Render sets RENDER_EXTERNAL_HOSTNAME; extra origins (e.g. a custom domain)
+# can be given as a comma-separated CSRF_TRUSTED_ORIGINS env var.
+CSRF_TRUSTED_ORIGINS = [o for o in os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",") if o]
+if os.getenv("RENDER_EXTERNAL_HOSTNAME"):
+    CSRF_TRUSTED_ORIGINS.append(f"https://{os.environ['RENDER_EXTERNAL_HOSTNAME']}")
+
 INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",  # add this before 'django.contrib.staticfiles'
     "django.contrib.staticfiles",

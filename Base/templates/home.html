@@ -104,15 +104,15 @@
 
             <div class="stats">
                 <div class="stat">
-                    <span class="stat-num">2</span>
+                    <span class="stat-num" data-count="2">2</span>
                     <span class="stat-label">Industry roles</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-num">3</span>
+                    <span class="stat-num" data-count="3">3</span>
                     <span class="stat-label">Dean's &amp; VC's List honours</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-num">3</span>
+                    <span class="stat-num" data-count="3">3</span>
                     <span class="stat-label">Leadership positions</span>
                 </div>
                 <div class="stat">
@@ -132,12 +132,44 @@
             <h2>Technical Skills</h2>
         </div>
 
+        <!-- Animated robot walking along the top of the skills grid -->
+        <div class="robot-track" aria-hidden="true">
+            <div class="robot-walker">
+                <div class="robot-bubble">beep boop!</div>
+                <div class="robot-flip">
+                    <svg class="robot" viewBox="0 0 120 150" width="96" height="120">
+                        <ellipse class="r-shadow" cx="60" cy="146" rx="30" ry="4"/>
+                        <g class="r-leg r-leg-l"><rect x="44" y="112" width="12" height="24" rx="5"/><rect x="40" y="132" width="20" height="8" rx="4"/></g>
+                        <g class="r-leg r-leg-r"><rect x="64" y="112" width="12" height="24" rx="5"/><rect x="60" y="132" width="20" height="8" rx="4"/></g>
+                        <g class="r-bob">
+                            <g class="r-arm r-arm-l"><rect x="24" y="80" width="11" height="30" rx="5.5"/></g>
+                            <g class="r-arm r-arm-r"><rect x="85" y="80" width="11" height="30" rx="5.5"/></g>
+                            <rect class="r-body" x="34" y="76" width="52" height="42" rx="13"/>
+                            <circle class="r-heart" cx="60" cy="96" r="6"/>
+                            <rect class="r-neck" x="53" y="69" width="14" height="9" rx="3"/>
+                            <line class="r-antenna" x1="60" y1="12" x2="60" y2="28"/>
+                            <circle class="r-bulb" cx="60" cy="9" r="5"/>
+                            <rect class="r-ear" x="23" y="42" width="9" height="16" rx="4"/>
+                            <rect class="r-ear" x="88" y="42" width="9" height="16" rx="4"/>
+                            <rect class="r-head" x="30" y="26" width="60" height="46" rx="16"/>
+                            <rect class="r-screen" x="38" y="35" width="44" height="28" rx="9"/>
+                            <g class="r-eyes"><ellipse cx="51" cy="47" rx="4" ry="5"/><ellipse cx="69" cy="47" rx="4" ry="5"/></g>
+                            <path class="r-smile" d="M53 55 Q60 60 67 55"/>
+                            <circle class="r-cheek" cx="44" cy="56" r="3"/>
+                            <circle class="r-cheek" cx="76" cy="56" r="3"/>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+            <div class="robot-floor"></div>
+        </div>
+
         <div class="skills-grid">
             <div class="skill-card">
                 <div class="skill-icon"><i class="fa-solid fa-code"></i></div>
-                <h3>Programming &amp; Query</h3>
+                <h3>Languages &amp; Databases</h3>
                 <ul class="tags">
-                    <li>Python</li><li>SQL</li><li>Java</li>
+                    <li>Python</li><li>SQL</li><li>Java</li><li>PostgreSQL</li><li>MySQL</li>
                 </ul>
             </div>
 
@@ -169,14 +201,6 @@
             </div>
 
             <div class="skill-card">
-                <div class="skill-icon"><i class="fa-solid fa-database"></i></div>
-                <h3>Databases</h3>
-                <ul class="tags">
-                    <li>PostgreSQL</li><li>MySQL</li>
-                </ul>
-            </div>
-
-            <div class="skill-card">
                 <div class="skill-icon"><i class="fa-solid fa-gears"></i></div>
                 <h3>Automation &amp; Tools</h3>
                 <ul class="tags">
@@ -184,7 +208,7 @@
                 </ul>
             </div>
 
-            <div class="skill-card skill-card-wide">
+            <div class="skill-card">
                 <div class="skill-icon"><i class="fa-solid fa-globe"></i></div>
                 <h3>Web Development</h3>
                 <ul class="tags">
@@ -454,12 +478,43 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
-    // Reveal-on-scroll
+    // Count a stat number up from 0 once it scrolls into view
+    const countUp = el => {
+        const target = +el.dataset.count, start = performance.now();
+        const tick = now => {
+            const t = Math.min((now - start) / 900, 1);
+            el.textContent = Math.round(target * (1 - Math.pow(1 - t, 3)));
+            if (t < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+    };
+
+    // Reveal-on-scroll; boxes in the same group appear one after another
     const io = new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+        entries.forEach(e => {
+            if (!e.isIntersecting) return;
+            e.target.classList.add('visible');
+            e.target.querySelectorAll('[data-count]').forEach(countUp);
+            io.unobserve(e.target);
+        });
     }, { threshold: 0.12 });
-    document.querySelectorAll('.section-head, .skill-card, .timeline-item, .project-card, .panel, .stat, .about-text, .contact-info, .contact-form')
-        .forEach(el => { el.classList.add('reveal'); io.observe(el); });
+    document.querySelectorAll('.section-head, .robot-track, .skill-card, .timeline-item, .project-card, .panel, .stat, .about-text, .contact-info, .contact-form')
+        .forEach(el => {
+            const siblings = [...el.parentElement.children].filter(c => c.classList[0] === el.classList[0]);
+            el.style.setProperty('--d', `${siblings.indexOf(el) * 90}ms`);
+            el.querySelectorAll('.tags li').forEach((li, i) => li.style.setProperty('--i', i));
+            el.classList.add('reveal');
+            io.observe(el);
+        });
+
+    // Spotlight on boxes follows the cursor
+    document.querySelectorAll('.skill-card, .project-card, .panel, .stat, .contact-form').forEach(box => {
+        box.addEventListener('pointermove', e => {
+            const r = box.getBoundingClientRect();
+            box.style.setProperty('--mx', `${e.clientX - r.left}px`);
+            box.style.setProperty('--my', `${e.clientY - r.top}px`);
+        });
+    });
 
     document.getElementById('year').textContent = new Date().getFullYear();
 </script>
